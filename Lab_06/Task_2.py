@@ -10,19 +10,19 @@ students = {} # słownik studentów
 students = MyLinkedList()
 
 
-with open('students.txt', newline='') as file:
+with open('ocenystudenci', newline='') as file:
     text_file = csv.reader(file, delimiter=',') # Zakładam że po przecinku
     for student_string in text_file:
         email, first_name, last_name = student_string[:3] # first 4 info
-        all_grade = student_string[4:14]
+        all_grade = student_string[3:17]
         if(len(student_string) > 18):
-            status = student_string[:-1]
+            status = student_string[-1]
         else:
             status = None;
-        student = Student(email,first_name,last_name,all_grade,status)
-        print(student)
-        students.append(Element(student),lambda x, y: x.email >= y.email)
 
+        student = Student(email,first_name,last_name,all_grade,status)
+        print(f"student data = {student}")
+        students.append(Element(student),lambda x, y: x.email >= y.email)
 
 def write_changes():
     with open('students.txt', mode='w', newline="\n") as file:
@@ -35,22 +35,9 @@ def write_changes():
             file.write(string)
             student_element = student_element.nextE
 
-def get_grade(all_grades):
+def get_grade(student):
     return 5 # todo later
-
-    points = int(all_grades)
-    if points <= 50:
-        return 2
-    if points >= 51 and points <= 60:
-        return 3
-    if points >= 61 and points <= 70:
-        return 3.5
-    if points >= 71 and points <= 80:
-        return 4
-    if points >= 81 and points <= 90:
-        return 4.5
-    if points >= 91 and points <= 100:
-        return 5
+    # I do not understand points in file and how they correspond to the grade, which are lists, projects etc
 
 def get_students():
     student_element = students.get()
@@ -119,7 +106,7 @@ def mail_students():
 get_students()
 
 remove_student("test2@gmail.com")
-mail_students()
+#mail_students()
 
 
 choice = -1

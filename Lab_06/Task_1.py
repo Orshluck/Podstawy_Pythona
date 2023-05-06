@@ -67,6 +67,11 @@ class MyLinkedList:
 
         currentElement.nextE = e
 
+    def printSelf(self):
+        currentElement = self.head
+        while currentElement:
+            print(currentElement.data)
+            currentElement = currentElement.nextE
 
 
 #
